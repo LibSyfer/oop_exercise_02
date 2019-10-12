@@ -22,8 +22,8 @@ struct BigString{
     BigString operator |(const BigString& s) const;
     BigString operator ^(const BigString& s) const;
     BigString operator !() const;
-    BigString& operator<<(int);
-    BigString& operator>>(int);
+    BigString operator<<(int) const;
+    BigString operator>>(int) const;
     bool operator ==(const BigString& s) const;
     bool operator !=(const BigString& s) const;
     bool operator >(const BigString& s) const;

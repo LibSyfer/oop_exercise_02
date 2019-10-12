@@ -100,40 +100,41 @@ BigString BigString::operator !() const{
     res.set_rstring(~(this->rString));
     return res;
 }
-BigString& BigString::operator<<(int shift) {
-    unsigned long long Mask_firstBit = 0x8000000000000000; // первый бит 1 остальные 0
-    BigString res;
+BigString BigString::operator<<(int shift) const{
+    unsigned long long mask = 0x8000000000000000; // первый бит 1 остальные 0
+    BigString res = *this;
     int bit;
     for(int i = 0; i < shift; ++i) {
-        if(this->rString & Mask_firstBit) {
+        if(res.rString & mask) {
             bit = 1;
         }
         else {
             bit  = 0;
         }
-        this->rString = this->rString << 1;
-        this->lString = this->lString << 1;
-        this->lString = this->lString | bit;
+        res.rString = res.rString << 1;
+        res.lString = res.lString << 1;
+        res.lString = res.lString | bit;
     }
-    return *this;
+    return res;
 }
-BigString& BigString::operator>>(int shift) {
-    unsigned long long Mask_lastBit = 1; // последний бит 1 остальные 0
+BigString BigString::operator>>(int shift) const{
+    unsigned long long mask = 1; // последний бит 1 остальные 0
+    BigString res = *this;
     int bit;
     for(int i = 0; i < shift; ++i) {
-        if (this->lString & Mask_lastBit) {
+        if (res.lString & mask) {
             bit = 1;
         }
         else {
             bit = 0;
         }
-        this->lString = this->lString >> 1;
-        this->rString = this->rString >> 1;
+        res.lString = res.lString >> 1;
+        res.rString = res.rString >> 1;
         if (bit) {
-            this->rString= this->rString | 0x8000000000000000;
+            res.rString= res.rString | 0x8000000000000000;
         }
     }
-    return *this;
+    return res;
 }
 bool BigString::operator ==(const BigString& s) const{
     return this->lString == s.get_lstring() && this->rString == s.get_rstring();
