@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../includes/bigString.hpp"
 
 BigString::BigString():lString(0), rString(0){}
@@ -48,9 +47,9 @@ unsigned long long BigString::get_rstring() const {
 }
 
 char BigString::get_bit(int index) const{
+    char bit = '0';
     if(index >= 0 && index < 128) {
         unsigned long long mask = 0x8000000000000000; // первый бит 1 остальные 0
-        char bit;
         if(index < 64) {
             mask = mask >> index;
             if(this->lString & mask) {
@@ -66,10 +65,10 @@ char BigString::get_bit(int index) const{
                 bit = '0';
             }
         }
-        return bit;
     }
+    return bit;
 }
-void BigString::print_all_bits() {
+void BigString::print_all_bits() const{
     for(int i = 0; i < 128; ++i) {
         std::cout << this->get_bit(i);
     }
@@ -205,6 +204,21 @@ bool BigString::is_include(const BigString& s) const {
     else {
         return false;
     }
+}
+
+std::istream& operator >>(std::istream& is, BigString& s) {
+    unsigned long long n = 0;
+    is >> n;
+    s.set_lstring(n);
+    is >> n;
+    s.set_rstring(n);
+    return is;
+}
+std::ostream& operator <<(std::ostream& os, const BigString& s) {
+    for(int i = 0; i < 128; ++i) {
+        os << s.get_bit(i);
+    }
+    return os;
 }
 
 unsigned long long pow_m(int a, int b) {

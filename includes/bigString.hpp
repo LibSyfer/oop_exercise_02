@@ -1,6 +1,8 @@
 #ifndef BIGSTRING_HPP
 #define BIGSTRING_HPP
 
+#include <iostream>
+
 struct BigString{
     BigString();
     BigString(unsigned long long n1, unsigned long long n2);
@@ -16,7 +18,7 @@ struct BigString{
     unsigned long long get_rstring() const;
 
     char get_bit(int) const;
-    void print_all_bits();
+    void print_all_bits() const;
 
     BigString operator &(const BigString& s) const;
     BigString operator |(const BigString& s) const;
@@ -38,6 +40,10 @@ private:
     unsigned long long lString;
     unsigned long long rString;
 };
+
+std::istream& operator >>(std::istream&, BigString&);
+std::ostream& operator <<(std::ostream&, const BigString&);
+
 
 unsigned long long pow_m(int, int);
 BigString operator "" _0XtoBS(const char*, size_t);

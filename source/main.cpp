@@ -105,6 +105,10 @@ int main(int argc, char* argv[]) {
             } else {
                 std::cout << "str1 не меньше str2\n";
             }
+        } else if(R == 'G') {
+            std::cout << "Введите 2 числа:\n";
+            std::cin >> str1;
+            std::cout << str1 << std::endl;
         } else {
             break;
         }
@@ -129,7 +133,7 @@ void meny() {
     std::cout << "D)!=" << std::endl;
     std::cout << "E)>" << std::endl;
     std::cout << "F)<" << std::endl;
-
+    std::cout << "G) std::cin >> str1 и std:cout << str1" << std::endl;
 }
 
 unsigned long long get_num_in_file(std::ifstream& fin) {
